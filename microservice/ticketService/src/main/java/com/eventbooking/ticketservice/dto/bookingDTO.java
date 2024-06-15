@@ -9,6 +9,8 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
+// This class is a Data Transfer Object (DTO) for booking history
 public class bookingDTO {
 
     private int ticketId;

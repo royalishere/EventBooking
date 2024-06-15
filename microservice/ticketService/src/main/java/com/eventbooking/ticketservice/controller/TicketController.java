@@ -14,10 +14,11 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class TicketController {
 
-
+    // Gọi service TicketService
     private final TicketService ticketService;
 
     @PostMapping("/createTicket")
+    //Tạo danh sách vé tham gia sự kiện
     public Ticket postTicket(@RequestBody Ticket ticket) {
 
         return ticketService.createTicket(ticket);
@@ -25,11 +26,13 @@ public class TicketController {
     }
 
     @GetMapping("/getAllTickets")
+    //Lấy danh sách vé tham gia sự kiện
     public List<Ticket> getAllTickets() {
         return ticketService.getAllTickets();
     }
 
     @GetMapping("/getTicketById")
+    //Lấy vé theo id
     public ResponseEntity<?> getTicketById(@RequestParam int id) {
 
         Ticket result = ticketService.getById(id);
@@ -38,16 +41,21 @@ public class TicketController {
 
     }
 
-    @PutMapping("/updateTicket")
+    @PutMapping("/updateCount")
+    //Cập nhật số lượng vé còn lại
     public ResponseEntity<?> updateTicket(@RequestParam int id, int count) {
 
+        //gọi hàm getById() từ service TicketService
         Ticket result = ticketService.getById(id);
 
+        //kiểm tra vé có tồn tại không
         if (result != null) {
+            //kiểm tra số lượng vé còn lại có đủ không
             if (result.getTicketAvailable() < count) {
                 return ResponseEntity.ok("Not enough tickets available");
             }
 
+            //nếu đủ thì giảm số lượng vé còn lại
             ticketService.bookingTicket(result, count);
         }
 
