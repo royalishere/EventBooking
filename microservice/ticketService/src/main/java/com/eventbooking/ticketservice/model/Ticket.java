@@ -14,19 +14,19 @@ public class Ticket {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "eventId")
+    @Column(name = "event_id")
     private int eventId;
 
-    @Column(name = "ticketAvailable")
+    @Column(name = "ticket_available")
     private int ticketAvailable;
 
-    @Column(name = "ticketType")
+    @Column(name = "ticket_type")
     private String ticketType;
 
-    @Column(name = "ticketPrice")
+    @Column(name = "ticket_price")
     private double ticketPrice;
 
 }
