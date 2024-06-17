@@ -47,4 +47,8 @@ public class TicketService {
 
         ticketRepo.save(ticket);
     }
+
+    public List<Ticket> findByEventId(int eventId) {
+        return ticketRepo.findByEventId(eventId);
+    }
 }

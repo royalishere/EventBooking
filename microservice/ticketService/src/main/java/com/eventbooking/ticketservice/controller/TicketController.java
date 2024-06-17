@@ -50,6 +50,7 @@ public class TicketController {
 
         //kiểm tra vé có tồn tại không
         if (result != null) {
+
             //kiểm tra số lượng vé còn lại có đủ không
             if (result.getTicketAvailable() < count) {
                 return ResponseEntity.ok("Not enough tickets available");
@@ -60,6 +61,17 @@ public class TicketController {
         }
 
         return ResponseEntity.ok(Objects.requireNonNullElse(result, "Ticket not found"));
+    }
 
+    @GetMapping("/getByEventId")
+    //Lấy vé theo id sự kiện
+    public List<Ticket> findByEventId(@RequestParam int eventId) {
+
+        try{
+            return ticketService.findByEventId(eventId);
+        }
+        catch (Exception e) {
+            return null;
+        }
     }
 }

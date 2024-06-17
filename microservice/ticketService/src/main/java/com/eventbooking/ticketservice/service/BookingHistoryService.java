@@ -35,4 +35,12 @@ public class BookingHistoryService {
         bookingHistory.setBookingStatus(status);
         return bookingHistoryRepo.save(bookingHistory);
     }
+
+    public double getEventRevenue(int eventId) {
+        return bookingHistoryRepo.findTotalPriceByEventId(eventId);
+    }
+
+    public List<BookingHistory> findByUserId(int userId) {
+        return bookingHistoryRepo.findByUserId(userId);
+    }
 }

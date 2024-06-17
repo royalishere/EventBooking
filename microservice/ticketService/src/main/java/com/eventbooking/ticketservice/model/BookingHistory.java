@@ -19,6 +19,9 @@ public class BookingHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "event_id")
+    private int eventId;
+
     @Column(name = "ticket_id")
     private int ticketId;
 

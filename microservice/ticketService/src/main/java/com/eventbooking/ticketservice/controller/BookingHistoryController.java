@@ -31,16 +31,6 @@ public class BookingHistoryController {
     @PostMapping("/booking")
     //đặt vé
     public ResponseEntity<?> booking(@RequestBody bookingDTO bookingDTO) {
-        //tạo một đối tượng BookingHistory
-        BookingHistory bookingRequest = new BookingHistory();
-
-        //gán giá trị cho các thuộc tính của đối tượng BookingHistory
-        bookingRequest.setTicketId(bookingDTO.getTicketId());
-        bookingRequest.setUserId(bookingDTO.getUserId());
-        bookingRequest.setTicketCount(bookingDTO.getTicketCount());
-
-        bookingRequest.setBookingDate(new Date());
-        bookingRequest.setBookingStatus("Wait for payment");
 
         Ticket ticket = ticketService.getById(bookingDTO.getTicketId());
 
@@ -54,14 +44,26 @@ public class BookingHistoryController {
 
             return ResponseEntity.ok("Not enough tickets available");
         }
-        else {
-            //nếu đủ thì giảm số lượng vé còn lại
-            ticketService.bookingTicket(ticket, bookingRequest.getTicketCount());
 
-            //tính tổng giá tiền và tạo lịch sử đặt vé
-            bookingRequest.setTotalPrice(ticket.getTicketPrice() * bookingRequest.getTicketCount());
-            bookingHistoryService.createBookingHistory(bookingRequest);
-        }
+        //tạo một đối tượng BookingHistory
+        BookingHistory bookingRequest = new BookingHistory();
+
+        //gán giá trị cho các thuộc tính của đối tượng BookingHistory
+        bookingRequest.setEventId(ticket.getEventId());
+        bookingRequest.setTicketId(bookingDTO.getTicketId());
+        bookingRequest.setUserId(bookingDTO.getUserId());
+        bookingRequest.setTicketCount(bookingDTO.getTicketCount());
+
+        bookingRequest.setBookingDate(new Date());
+        bookingRequest.setBookingStatus("Wait for payment");
+
+
+        //nếu đủ thì giảm số lượng vé còn lại
+        ticketService.bookingTicket(ticket, bookingRequest.getTicketCount());
+
+        //tính tổng giá tiền và tạo lịch sử đặt vé
+        bookingRequest.setTotalPrice(ticket.getTicketPrice() * bookingRequest.getTicketCount());
+        bookingHistoryService.createBookingHistory(bookingRequest);
 
         return ResponseEntity.ok(bookingRequest);
     }
@@ -115,5 +117,30 @@ public class BookingHistoryController {
         bookingHistoryService.updateStatus(bookingHistory, "Paid");
 
         return ResponseEntity.ok(bookingHistory);
+    }
+
+    @GetMapping("/getEventRevenue")
+    //lấy doanh thu của sự kiện
+    public double getEventRevenue(@RequestParam int eventId) {
+        //gọi hàm getEventRevenue() từ service BookingHistoryService
+        try {
+            return bookingHistoryService.getEventRevenue(eventId);
+        }
+        catch (Exception e) {
+
+            //trả về 0 nếu không có doanh thu
+            return 0;
+        }
+    }
+
+    @GetMapping("/getByUserId")
+    //lấy lịch sử đặt vé theo id người dùng
+    public List<BookingHistory> getByUserId(@RequestParam int userId) {
+        try{
+            return bookingHistoryService.findByUserId(userId);
+        }
+        catch (Exception e) {
+            return null;
+        }
     }
 }
