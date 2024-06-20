@@ -41,7 +41,7 @@ public class EventController {
         return eventService.getAllEvents();
     }
 
-        @GetMapping("/getById")
+    @GetMapping("/getById")
     //get event by id
     public ResponseEntity<?> getEventById(@RequestParam int id) {
         return ResponseEntity.ok(Objects.requireNonNullElse(eventService.getById(id),
