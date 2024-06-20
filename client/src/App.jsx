@@ -1,14 +1,17 @@
-import {useState} from 'react'
-import UserLogin from './views/UserLogin'
-import LoginHeader from './components/LoginHeader'
+import React from 'react';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import UserSignup from './views/UserSignup';
+import UserLogin from './views/UserLogin';
 
-function App() {
+const App = () => {
     return (
-        <>
-            <LoginHeader/>
-            <UserLogin/>
-        </>
-    )
-}
+        <Router>
+            <Routes>
+                <Route path="/signup" element={<UserSignup/>}/>
+                <Route path="/login" element={<UserLogin/>}/>
+            </Routes>
+        </Router>
+    );
+};
 
-export default App
+export default App;
