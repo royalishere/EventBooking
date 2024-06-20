@@ -1,0 +1,38 @@
+.auth-container {
+    border: 2px solid #cecece;
+    border-radius: 20px;
+    width: 30%;
+    box-shadow: 4px 0 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+.auth-container label, .auth-container a {
+    font-weight: bold;
+}
+
+.auth-container input {
+    font-size: 14px;
+    color: #8a8a8a;
+}
+
+.auth-container button {
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 15px;
+    padding: 6px;
+    width: 100%;
+}
+
+.logo {
+    height: 40px;
+}
+
+.shiba {
+    height: 60px;
+}
+
+.login-header {
+    background-color: #2dc275;
+}
