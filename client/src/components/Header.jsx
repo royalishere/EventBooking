@@ -1,9 +1,9 @@
 import React from 'react';
 import events_logo from '../../public/events_logo.jpeg';
 import shiba from '../../public/shibainu.png';
-import '../styles/Login.css';
+import '../styles/auth.css';
 
-const LoginHeader = () => {
+const Header = () => {
     return (
         <div className="login-header p-3 mb-4">
             <div className="col-12 d-flex justify-content-center align-items-center m-2">
@@ -15,4 +15,4 @@ const LoginHeader = () => {
     );
 }
 
-export default LoginHeader;
+export default Header;

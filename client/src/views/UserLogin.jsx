@@ -1,28 +1,49 @@
-import React from 'react';
-import Form from 'react-bootstrap/Form';
-import {Button} from "react-bootstrap";
-import '../styles/Login.css';
+import React, {useState} from 'react';
+import FormInput from '../components/FormInput';
+import Header from '../components/Header';
+import {loginWithEmailAndPassword, loginWithGoogle} from '../api/auth';
+import '../styles/auth.css';
 
 const UserLogin = () => {
-    return (
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+    });
 
-        <div className="auth-container mx-auto p-3">
-            <h3 class="text-center">Login</h3>
-            <Form className="d-flex flex-column align-items-center">
-                <Form.Group className="col-10 mb-4" controlId="formEmail">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="Email"/>
-                </Form.Group>
-                <Form.Group className="col-10 mb-4" controlId="formPassword">
-                    <Form.Label>Mật khẩu</Form.Label>
-                    <Form.Control type="password" placeholder="Password"/>
-                </Form.Group>
-                <a href="/ForgotPassword" className="nav-link active text-success mb-5">Quên mật khẩu?</a>
-                <Button variant="primary" type="submit" size="sm">
-                    Tiếp tục
-                </Button>
-            </Form>
-        </div>
+    const [loggedInUser, setLoggedInUser] = useState(null);
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+
+            console.log('Login successful:', response);
+            // Xử lý sau khi đăng nhập thành công, như chuyển hướng đến trang khác
+        } catch (error) {
+            console.error('Login error:', error);
+        }
+    };
+
+    return (
+        <>
+            <Header/>
+            <div className="form-container">
+                <h3 className={'text-center'}>Đăng nhập</h3>
+                <form onSubmit={handleSubmit}>
+                    <FormInput label="Email" type="email" name="email" value={formData.email}
+                               onChange={handleChange}/>
+                    <FormInput label="Mật khẩu" type="password" name="password" value={formData.password}
+                               onChange={handleChange}/>
+                    <button type="submit" className="btn btn-primary">Tiếp tục</button>
+                </form>
+            </div>
+        </>
     );
 };
 
