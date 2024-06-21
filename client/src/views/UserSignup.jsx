@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {registerWithEmailAndPassword, loginWithGoogle} from '../api/auth';
 import ToastContainer from '../components/Toast';
 import {toast} from "react-toastify";

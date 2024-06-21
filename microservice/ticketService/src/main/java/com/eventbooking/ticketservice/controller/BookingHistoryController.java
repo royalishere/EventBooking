@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/booking history")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:5000")
 public class BookingHistoryController {
 
     // Gọi service BookingHistoryService và TicketService

@@ -13,6 +13,7 @@ import java.util.Objects;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/organizer")
+@CrossOrigin(origins = "http://localhost:5000")
 public class OrganizerController {
 
     private final OrganizerService organizerService;

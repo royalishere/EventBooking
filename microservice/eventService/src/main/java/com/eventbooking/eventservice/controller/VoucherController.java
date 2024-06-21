@@ -14,6 +14,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/voucher")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:5000")
 public class VoucherController {
 
     private final VoucherService voucherService;
