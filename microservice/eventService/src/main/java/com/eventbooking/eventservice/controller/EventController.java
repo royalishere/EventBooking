@@ -13,6 +13,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/event")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:5000")
 public class EventController {
 
     private final EventService eventService;

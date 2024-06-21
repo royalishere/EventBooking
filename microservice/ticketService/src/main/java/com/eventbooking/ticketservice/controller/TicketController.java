@@ -12,6 +12,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/ticket")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:5000")
 public class TicketController {
 
     // Gọi service TicketService

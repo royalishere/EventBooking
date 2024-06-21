@@ -13,6 +13,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:5000")
 public class UserController {
 
     // Gọi UserService
