@@ -1,3 +1,5 @@
+$primary-color: #2dc275;
+$secondary-color: #28ad69;
 
 .form-container {
   font-size: 14px;
@@ -65,7 +67,7 @@
   font-size: 16px;
   font-weight: bold;
   text-decoration: none;
-  color: #28ad69;
+  color: $secondary-color;
 }
 
 .logo {
@@ -77,5 +79,5 @@
 }
 
 .header {
-  background-color: #2dc275;
+  background-color: $primary-color;
 }

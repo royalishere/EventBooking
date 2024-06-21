@@ -1,0 +1,76 @@
+// Variables
+$background-color: #000;
+$text-color: #fff;
+$primary-color: #007bff;
+$border-color: #ccc;
+
+// Mixin for border-radius
+@mixin border-radius($radius) {
+  border-radius: $radius;
+}
+
+// Header styles
+.nav-bar {
+  background-color: $background-color;
+  padding: 10px;
+
+  .nav-links {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    color: $text-color;
+
+    a {
+      color: $text-color;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// Event card styles
+.event-card {
+  border: 1px solid $border-color;
+  @include border-radius(10px);
+  overflow: hidden;
+  margin: 10px;
+  text-align: center;
+
+  img {
+    width: 100%;
+    max-height: 180px;
+    object-fit: cover;
+  }
+
+  button {
+    width: 75%;
+  }
+
+  .event-info {
+    padding: 10px;
+
+    h3 {
+      margin: 10px 0;
+    }
+  }
+}
+
+// Special events styles
+.special-events {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 20px;
+}
+
+// Carousel styles
+.carousel {
+  .legend {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    color: $text-color;
+  }
+}
