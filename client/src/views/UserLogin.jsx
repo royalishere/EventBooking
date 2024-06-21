@@ -5,7 +5,6 @@ import {toast} from 'react-toastify';
 import ToastContainer from '../components/Toast';
 import {loginWithEmailAndPassword, loginWithGoogle} from '../api/auth';
 import googleIcon from '../assets/google-icon.webp'
-import '../styles/auth.scss'
 
 const UserLogin = () => {
     const [formData, setFormData] = useState({
@@ -42,6 +41,8 @@ const UserLogin = () => {
         e.preventDefault();
         try {
             const response = await loginWithEmailAndPassword(formData.email, formData.password);
+            // navigate to home page
+
         } catch (error) {
             console.error('Login error:', error.code);
             switch (error.code) {
