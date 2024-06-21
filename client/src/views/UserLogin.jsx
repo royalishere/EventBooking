@@ -1,28 +1,84 @@
-import React from 'react';
-import Form from 'react-bootstrap/Form';
-import {Button} from "react-bootstrap";
-import '../styles/Login.css';
+import React, {useState} from 'react';
+import FormInput from '../components/FormInput';
+import Header from '../components/Header';
+import {toast} from 'react-toastify';
+import ToastContainer from '../components/Toast';
+import {loginWithEmailAndPassword, loginWithGoogle} from '../api/auth';
+import googleIcon from '../assets/google-icon.webp'
+import '../styles/auth.scss'
 
 const UserLogin = () => {
-    return (
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+    });
 
-        <div className="auth-container mx-auto p-3">
-            <h3 class="text-center">Login</h3>
-            <Form className="d-flex flex-column align-items-center">
-                <Form.Group className="col-10 mb-4" controlId="formEmail">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="Email"/>
-                </Form.Group>
-                <Form.Group className="col-10 mb-4" controlId="formPassword">
-                    <Form.Label>Mật khẩu</Form.Label>
-                    <Form.Control type="password" placeholder="Password"/>
-                </Form.Group>
-                <a href="/ForgotPassword" className="nav-link active text-success mb-5">Quên mật khẩu?</a>
-                <Button variant="primary" type="submit" size="sm">
-                    Tiếp tục
-                </Button>
-            </Form>
-        </div>
+    const [loggedInUser, setLoggedInUser] = useState(null);
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const handleGoogleSignIn = async () => {
+        try {
+            const result = await loginWithGoogle();
+            console.log('Google sign-in successful:', result);
+        } catch (error) {
+            switch (error.code) {
+                case 'auth/popup-closed-by-user':
+                    toast.error('Đăng nhập bị hủy bởi người dùng');
+                    break;
+                default:
+                    toast.error('Đăng nhập thất bại');
+            }
+        }
+    };
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await loginWithEmailAndPassword(formData.email, formData.password);
+        } catch (error) {
+            console.error('Login error:', error.code);
+            switch (error.code) {
+                case 'auth/invalid-credential':
+                    toast.error('Email hoặc mật khẩu không đúng');
+                    break;
+                case 'auth/too-many-requests':
+                    toast.error('Quá nhiều yêu cầu. Vui lòng thử lại sau');
+                    break;
+            }
+        }
+    };
+
+    return (
+        <>
+            <ToastContainer/>
+            <Header/>
+            <div className="form-container">
+                <h3 className={'text-center'}>Đăng nhập</h3>
+                <form onSubmit={handleSubmit}>
+                    <FormInput label="Email" type="email" name="email" value={formData.email}
+                               onChange={handleChange}/>
+                    <FormInput label="Mật khẩu" type="password" name="password" value={formData.password}
+                               onChange={handleChange}/>
+                    <p className={'text-center'}>
+                        <a href={'/forgot-password'} className={'fpw-link'}>Quên mật khẩu?</a>
+                    </p>
+                    <button type="submit" className="btn btn-primary">Tiếp tục</button>
+                    <p className={'text-center'}>Chưa có tài khoản? <a href={'/signup'}>Đăng ký ngay</a></p>
+                </form>
+                <hr/>
+                <p className={'text-center'}>Hoặc đăng nhập bằng:</p>
+                <button onClick={handleGoogleSignIn} className="google-btn">
+                    <img src={googleIcon} className={'logo'}></img>
+                </button>
+            </div>
+        </>
     );
 };
 
