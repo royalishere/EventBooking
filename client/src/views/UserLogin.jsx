@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import FormInput from '../components/FormInput';
-import Header from '../components/Header';
+import TitleBar from '../components/TitleBar';
 import {toast} from 'react-toastify';
 import ToastContainer from '../components/Toast';
 import {loginWithEmailAndPassword, loginWithGoogle} from '../api/auth';
@@ -58,7 +58,7 @@ const UserLogin = () => {
     return (
         <>
             <ToastContainer/>
-            <Header/>
+            <TitleBar/>
             <div className="form-container">
                 <h3 className={'text-center'}>Đăng nhập</h3>
                 <form onSubmit={handleSubmit}>

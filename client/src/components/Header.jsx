@@ -10,7 +10,7 @@ const Header = () => {
                     <a href="/"><img src={logo} alt="EventBox Logo"/></a>
                 </div>
 
-                <div class= "wrapper">
+                <div class="wrapper">
                     <div class="search-bar">
                         <input type="text" placeholder="Bạn tìm gì hôm nay?"/>
                         <button type="submit">
@@ -27,23 +27,10 @@ const Header = () => {
                     </div>
                 </div>
 
-                
+
             </div>
         </header>
-/*
-import events_logo from '/events_logo.jpeg';
-import shiba from '/shibainu.png';
 
-const Header = () => {
-    return (
-        <div className="header p-3 mb-4">
-            <div className="col-12 d-flex justify-content-center align-items-center m-2">
-                <img src={events_logo} alt="logo" className="logo"/>
-                <h4 className="text-light fw-bold mx-2">Xin chào!</h4>
-                <img src={shiba} alt="shiba" className="shiba"/>
-            </div>
-        </div>
-*/
     );
 }
 

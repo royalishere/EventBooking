@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../components/Header';
+import TitleBar from '../components/TitleBar';
 import FormInput from '../components/FormInput';
 import {resetPassword} from '../api/auth';
 import ToastContainer from '../components/Toast';
@@ -24,7 +24,7 @@ const ForgotPassword = () => {
 
     return (
         <>
-            <Header/>
+            <TitleBar/>
             <ToastContainer/>
             <div className="form-container">
                 <h4 className={'text-center'}>Đặt lại mật khẩu</h4>

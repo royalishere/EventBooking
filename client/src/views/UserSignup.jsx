@@ -3,7 +3,7 @@ import {registerWithEmailAndPassword, loginWithGoogle} from '../api/auth';
 import ToastContainer from '../components/Toast';
 import {toast} from "react-toastify";
 import FormInput from '../components/FormInput';
-import Header from '../components/Header';
+import TitleBar from '../components/TitleBar';
 
 const UserSignup = () => {
     const [formData, setFormData] = useState({
@@ -45,7 +45,7 @@ const UserSignup = () => {
     return (
         <>
             <ToastContainer/>
-            <Header/>
+            <TitleBar/>
             <div className="form-container">
                 <h3 className={'text-center'}>Đăng ký</h3>
                 <form onSubmit={handleSubmit}>
