@@ -1,5 +1,3 @@
-// src/components/FormInput.jsx
-
 import React from 'react';
 
 const FormInput = ({label, type, name, value, onChange}) => {
@@ -12,6 +10,7 @@ const FormInput = ({label, type, name, value, onChange}) => {
                 value={value}
                 onChange={onChange}
                 className="form-control"
+                required
             />
         </div>
     );
