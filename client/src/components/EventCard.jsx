@@ -6,11 +6,11 @@ const EventCard = ({event}) => {
         <div className="event-card">
             <img src={event.image} alt={event.title}/>
             <div className="event-info">
-                <h3>{event.title}</h3>
+                <h5 className="fw-bold">{event.title}</h5>
                 <p>{event.date}</p>
                 <p>Từ {event.price}</p>
-                <button className="btn btn-primary">Xem Chi Tiết</button>
             </div>
+            <button className="btn btn-primary">Xem Chi Tiết</button>
         </div>
     );
 };

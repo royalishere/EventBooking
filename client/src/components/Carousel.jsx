@@ -10,18 +10,26 @@ const Carousel = ({slides}) => {
         infinite: true,
         speed: 500,
         slidesToShow: 2,
-        slidesToScroll: 1
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 5000,
+        arrows: false,
     };
 
     return (
-        <Slider{...settings}>
-            {slides.map((slide, index) => (
-                <div key={index}>
-                    <img src={slide.image} alt={slide.title}/>
-                    <p className="legend">{slide.title}</p>
-                </div>
-            ))}
-        </Slider>
+        <div className="carousel">
+            <Slider{...settings}>
+                {slides.map((slide, index) => (
+                    <div key={index}>
+                        <img src={slide.image} alt={slide.title}/>
+                        <div className="carousel-detail-container">
+                            <p className="slide-price">Từ {slide.price}</p>
+                            <button>Xem Chi Tiết</button>
+                        </div>
+                    </div>
+                ))}
+            </Slider>
+        </div>
     );
 };
 

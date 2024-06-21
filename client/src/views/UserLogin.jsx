@@ -41,6 +41,8 @@ const UserLogin = () => {
         e.preventDefault();
         try {
             const response = await loginWithEmailAndPassword(formData.email, formData.password);
+            // navigate to home page
+
         } catch (error) {
             console.error('Login error:', error.code);
             switch (error.code) {

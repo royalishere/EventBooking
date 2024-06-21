@@ -36,12 +36,25 @@ const Home = () => {
     ];
 
     return (
-        <div>
+        <div className="home-page">
             <Header/>
             <NavBar/>
             <Carousel slides={specialEvents}/>
-            <h2>Sự kiện đặc biệt</h2>
+            <h5 className="fw-bold ms-5">Sự kiện đặc biệt</h5>
             <SpecialEvent events={specialEvents}/>
+            <p className="text-end me-4"><a href="/events" className="more-detail">Xem thêm <i
+                className="bi bi-arrow-right-square"></i></a>
+            </p>
+            <h5 className="fw-bold ms-5">Nhạc sống</h5>
+            <SpecialEvent events={specialEvents}/>
+            <p className="text-end me-4"><a href="/events" className="more-detail">Xem thêm <i
+                className="bi bi-arrow-right-square"></i></a>
+            </p>
+            <h5 className="fw-bold ms-5">Sân khấu & nghệ thuật</h5>
+            <SpecialEvent events={specialEvents}/>
+            <p className="text-end me-4"><a href="/events" className="more-detail">Xem thêm <i
+                className="bi bi-arrow-right-square"></i></a>
+            </p>
             <Footer/>
         </div>
     );
