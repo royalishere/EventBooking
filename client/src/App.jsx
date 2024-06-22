@@ -19,7 +19,7 @@ const App = () => {
                     <Route path="/login" element={<UserLogin/>}/>
                     <Route path="/profile" element={<Profile/>}/>
                     <Route path="/forgot-password" element={<ForgotPassword/>}/>
-                    <Route path="/eventdetail" element={<EventDetail/>}/>
+                    <Route path="/event-detail" element={<EventDetail/>}/>
                     <Route path="*" element={<Navigate to="/"/>}/>
                 </Routes>
             </Router>

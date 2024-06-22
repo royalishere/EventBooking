@@ -7,6 +7,7 @@ import {loginWithEmailAndPassword, loginWithGoogle} from '../api/auth';
 import {useAuth} from '../context/AuthContext';
 import googleIcon from '../assets/google-icon.webp'
 import {Navigate} from "react-router-dom";
+import {getUserByEmail, createUser} from "../api/user";
 
 const UserLogin = () => {
     const [formData, setFormData] = useState({
@@ -30,6 +31,13 @@ const UserLogin = () => {
     const handleGoogleSignIn = async () => {
         try {
             await loginWithGoogle();
+            if (await getUserByEmail(currentUser.email) === null) {
+                const user = {
+                    name: currentUser.displayName,
+                    email: currentUser.email,
+                };
+                await createUser(user);
+            }
         } catch (error) {
             switch (error.code) {
                 case 'auth/popup-closed-by-user':

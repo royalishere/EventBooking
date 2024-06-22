@@ -3,7 +3,7 @@ import React from 'react';
 const eventItem = ({event}) => {
     return (
         <div class="event-container">
-            <a href={`/eventdetail`}>
+            <a href={`/event-detail`}>
                 <div width="100%" class="event-wrap">
                     <div class="image-section">
                             <span>

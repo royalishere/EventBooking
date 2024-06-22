@@ -3,7 +3,7 @@ import logo from '../../public/events_logo.jpeg';
 import {useAuth} from '../context/AuthContext';
 import {logout} from '../api/auth';
 
-const Header = () => {
+const Header = React.memo(() => {
 
     const {isAuthenticated} = useAuth();
 
@@ -47,6 +47,6 @@ const Header = () => {
         </header>
 
     );
-}
+})
 
 export default Header;
