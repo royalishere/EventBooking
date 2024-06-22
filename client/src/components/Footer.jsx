@@ -1,6 +1,6 @@
 import React from 'react';
-import fb_icon from '../../public/facebook-icon.png';
-import ig_icon from '../../public/instagram-icon.png';
+import fb_icon from '/facebook-icon.png';
+import ig_icon from '/instagram-icon.png';
 
 const Footer = () => {
     return (

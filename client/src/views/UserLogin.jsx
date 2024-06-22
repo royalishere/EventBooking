@@ -16,6 +16,10 @@ const UserLogin = () => {
 
     const {currentUser} = useAuth();
 
+    if (currentUser) {
+        return <Navigate to={'/'}/>
+    }
+
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -58,7 +62,6 @@ const UserLogin = () => {
 
     return (
         <>
-            {currentUser && <Navigate to={'/'}/>}
             <ToastContainer/>
             <TitleBar/>
             <div className="form-container">
