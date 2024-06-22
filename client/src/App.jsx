@@ -5,6 +5,7 @@ import UserLogin from './views/UserLogin'
 import Home from './views/Home';
 import ForgotPassword from './views/ForgotPassword';
 import Profile from './views/Profile';
+import EventDetail from './views/EventDetail';
 
 const App = () => {
     return (
@@ -16,6 +17,7 @@ const App = () => {
                 <Route path="/login" element={<UserLogin/>}/>
                 <Route path="/forgot-password" element={<ForgotPassword/>}/>
                 <Route path="/profile" element={<Profile/>}/>
+                <Route path="/eventdetail" element={<EventDetail/>}/>
             </Routes>
         </Router>  
     );

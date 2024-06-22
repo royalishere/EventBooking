@@ -16,7 +16,7 @@ const Profile = () => {
   return (
     <div class="Profile">
         <Header/>
-        <div class="Profile-container">
+        <form class="Profile-container">
             <div class="avatar">
                 <img src={logo} class="avatar-img" alt="Ảnh đại diện"/>
                 <label for="img-input"><i class="bi bi-camera-fill"></i></label>
@@ -54,7 +54,11 @@ const Profile = () => {
                         maxLength="70" class="Input" value={user.dob}/>
                 </div>
             </div>
-        </div>
+
+            <div className="profile-btn">
+                <button type="submit" class="submit-btn">Hoàn thành</button>
+            </div>
+        </form>
         <Footer/>
     </div>
   );
