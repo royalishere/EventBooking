@@ -1,85 +1,82 @@
 import React, {useEffect, useState} from 'react'
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import '../styles/_profile.scss';
-import logo from '../../public/events_logo.jpeg';
-import {getById} from "../api/user.js";
+import {useAuth} from "../context/AuthContext.jsx";
+import {Navigate} from "react-router-dom";
+import FormInput from "../components/FormInput.jsx";
+import {getById, updateUser} from "../api/user";
+import ToastContainer from "../components/Toast";
+import logo from '/events_logo.jpeg';
+import {toast} from "react-toastify";
 
 
 const Profile = () => {
-    const user={
-        name: "Võ Minh Hiếu",
-        phone: "0393587124",
-        email: "mittoleo2911@gmail.com",
-        dob: "29/11/2002"
-    }
+    const [user, setUser] = useState({
+        name: '',
+        phone: '',
+        email: '',
+        dateOfBirth: '',
+    });
 
-    const [data, setData] = useState({});
-
-    const getProfile = async (id) => {
-        try {
-            const { data } = await getById(id);
-            setData(data);
-            console.log(data);
-        }
-        catch (error) {
-            console.log("Error", error);
-        }
-    }
-
+    const {currentUser} = useAuth();
     useEffect(() => {
-        getProfile(1);
-    }, []);
+        if (!currentUser) return;
+        const getUser = async (id) => {
+            try {
+                const {data} = await getById(id);
+                setUser(data);
+            } catch (error) {
+                console.log("Error", error);
+            }
+        }
+        getUser(currentUser.SID);
+    }, [currentUser]);
 
-  return (
-    <div class="Profile">
-        <Header/>
-        <form class="Profile-container">
-            <div class="avatar">
-                <img src={logo} class="avatar-img" alt="Ảnh đại diện"/>
-                <label for="img-input"><i class="bi bi-camera-fill"></i></label>
-                <input id="img-input" type="file" accept="image/*"/>
-            </div>
-            
-            <div className="Flex-column">
-                <div className="Label">Họ và tên</div>
-                <div className="Value">
-                    <input name="name" placeholder="Nhập họ và tên" type="text"
-                        maxLength="70" class="Input" value={data.name}/>
-                </div>
-            </div>
+    if (!currentUser) {
+        return <Navigate to={'/login'}/>
+    }
 
-            <div className="Flex-column">
-                <div className="Label">Số điện thoại</div>
-                <div className="Value">
-                    <input name="phone" placeholder="Nhập số điện thoại" type="text"
-                        maxLength="70" class="Input" value={data.phone}/>
-                </div>
-            </div>
+    const onChange = (e) => {
+        setUser({
+            ...user,
+            [e.target.name]: e.target.value,
+        });
+    }
 
-            <div className="Flex-column">
-                <div className="Label">Email nhận vé</div>
-                <div className="Value">
-                    <input name="email" placeholder="Nhập email" type="text"
-                        maxLength="70" class="Input" value={data.email}/>
-                </div>
-            </div>
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await updateUser(user, currentUser.SID);
+            toast.success('Cập nhật thông tin thành công');
+        } catch (error) {
+            toast.error('Cập nhật thông tin thất bại');
+        }
+    }
 
-            <div className="Flex-column">
-                <div className="Label">Ngày tháng năm sinh</div>
-                <div className="Value">
-                    <input name="dob" placeholder="Nhập ngày tháng năm sinh" type="text"
-                        maxLength="70" class="Input" value={data.dateOfBirth}/>
-                </div>
-            </div>
 
-            <div className="profile-btn">
-                <button type="submit" class="submit-btn">Hoàn thành</button>
+    return (
+        <>
+            <ToastContainer/>
+            <Header/>
+            <div className="profile-container">
+                <form onSubmit={handleSubmit}>
+                    <div className="avatar">
+                        <img src={logo} className="avatar-img" alt="Ảnh đại diện"/>
+                        <label htmlFor="img-input"><i className="bi bi-camera-fill"></i></label>
+                        <input id="img-input" type="file" accept="image/*"/>
+                    </div>
+                    <FormInput label="Tên người dùng" type="text" name="name" value={user.name}
+                               onChange={onChange}/>
+                    <FormInput label="Số điện thoại" type="text" name="phone" value={user.phone} onChange={onChange}/>
+                    <FormInput label="Email" type="email" name="email" value={user.email} onChange={onChange}/>
+                    <FormInput label="Ngày sinh" type="date" name="dateOfBirth" value={user.dateOfBirth}
+                               onChange={onChange}/>
+                    <button type="submit" className="btn btn-primary">Hoàn thành</button>
+                </form>
             </div>
-        </form>
-        <Footer/>
-    </div>
-  );
+            <Footer/>
+        </>
+    );
 }
 
 export default Profile;

@@ -21,21 +21,21 @@ const Home = () => {
         },
         {
             id: 2,
-            image: "../event_2.jpg",
+            image: "/event_2.jpg",
             title: "Sự kiện đặc biệt 2",
             date: "13 tháng 07, 2024",
             price: "1.000.000đ",
         },
         {
             id: 3,
-            image: "../event_3.jpg",
+            image: "/event_3.jpg",
             title: "Sự kiện đặc biệt 3",
             date: "30 tháng 08, 2024",
             price: "500.000đ",
         },
         {
             id: 4,
-            image: "../event_4.jpg",
+            image: "/event_4.jpg",
             title: "Sự kiện đặc biệt 4",
             date: "05 tháng 09, 2024",
             price: "750.000đ",
@@ -45,12 +45,10 @@ const Home = () => {
     const [data, setData] = useState({});
 
     const getALlEvents = async () => {
-        try{
-            const { data } = await getAllEvents();
+        try {
+            const {data} = await getAllEvents();
             setData(data);
-            console.log(data);
-        }
-        catch (error){
+        } catch (error) {
             console.log("Error", error);
         }
     }

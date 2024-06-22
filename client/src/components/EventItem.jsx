@@ -1,10 +1,9 @@
 import React from 'react';
-import '../styles/event_item.css';
 
 const eventItem = ({event}) => {
     return (
         <div class="event-container">
-            <a href={`/event/getById/${event.id}`}>
+            <a href={`/event-detail`}>
                 <div width="100%" class="event-wrap">
                     <div class="image-section">
                             <span>
