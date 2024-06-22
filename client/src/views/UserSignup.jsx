@@ -4,6 +4,8 @@ import ToastContainer from '../components/Toast';
 import {toast} from "react-toastify";
 import FormInput from '../components/FormInput';
 import TitleBar from '../components/TitleBar';
+import {useAuth} from "../context/AuthContext.jsx";
+import {Navigate} from "react-router-dom";
 
 const UserSignup = () => {
     const [formData, setFormData] = useState({
@@ -12,6 +14,7 @@ const UserSignup = () => {
         password: '',
     });
 
+    const {currentUser} = useAuth();
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -22,8 +25,7 @@ const UserSignup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await registerWithEmailAndPassword(formData.email, formData.password);
-            console.log('Signup successful:', response);
+            await registerWithEmailAndPassword(formData.email, formData.password);
         } catch (error) {
             console.log('Signup error:', error.code);
             switch (error.code) {
@@ -44,6 +46,7 @@ const UserSignup = () => {
 
     return (
         <>
+            {currentUser && <Navigate to={'/'}/>}
             <ToastContainer/>
             <TitleBar/>
             <div className="form-container">

@@ -4,7 +4,9 @@ import TitleBar from '../components/TitleBar';
 import {toast} from 'react-toastify';
 import ToastContainer from '../components/Toast';
 import {loginWithEmailAndPassword, loginWithGoogle} from '../api/auth';
+import {useAuth} from '../context/AuthContext';
 import googleIcon from '../assets/google-icon.webp'
+import {Navigate} from "react-router-dom";
 
 const UserLogin = () => {
     const [formData, setFormData] = useState({
@@ -12,7 +14,7 @@ const UserLogin = () => {
         password: '',
     });
 
-    const [loggedInUser, setLoggedInUser] = useState(null);
+    const {currentUser} = useAuth();
 
     const handleChange = (e) => {
         setFormData({
@@ -23,8 +25,7 @@ const UserLogin = () => {
 
     const handleGoogleSignIn = async () => {
         try {
-            const result = await loginWithGoogle();
-            console.log('Google sign-in successful:', result);
+            await loginWithGoogle();
         } catch (error) {
             switch (error.code) {
                 case 'auth/popup-closed-by-user':
@@ -40,8 +41,7 @@ const UserLogin = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await loginWithEmailAndPassword(formData.email, formData.password);
-            // navigate to home page
+            await loginWithEmailAndPassword(formData.email, formData.password);
 
         } catch (error) {
             console.error('Login error:', error.code);
@@ -58,6 +58,7 @@ const UserLogin = () => {
 
     return (
         <>
+            {currentUser && <Navigate to={'/'}/>}
             <ToastContainer/>
             <TitleBar/>
             <div className="form-container">
