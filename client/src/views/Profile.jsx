@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/_profile.scss';
 import logo from '../../public/events_logo.jpeg';
+import {getById} from "../api/user.js";
 
 
 const Profile = () => {
@@ -12,6 +13,23 @@ const Profile = () => {
         email: "mittoleo2911@gmail.com",
         dob: "29/11/2002"
     }
+
+    const [data, setData] = useState({});
+
+    const getProfile = async (id) => {
+        try {
+            const { data } = await getById(id);
+            setData(data);
+            console.log(data);
+        }
+        catch (error) {
+            console.log("Error", error);
+        }
+    }
+
+    useEffect(() => {
+        getProfile(1);
+    }, []);
 
   return (
     <div class="Profile">
@@ -27,7 +45,7 @@ const Profile = () => {
                 <div className="Label">Họ và tên</div>
                 <div className="Value">
                     <input name="name" placeholder="Nhập họ và tên" type="text"
-                        maxLength="70" class="Input" value={user.name}/>
+                        maxLength="70" class="Input" value={data.name}/>
                 </div>
             </div>
 
@@ -35,7 +53,7 @@ const Profile = () => {
                 <div className="Label">Số điện thoại</div>
                 <div className="Value">
                     <input name="phone" placeholder="Nhập số điện thoại" type="text"
-                        maxLength="70" class="Input" value={user.phone}/>
+                        maxLength="70" class="Input" value={data.phone}/>
                 </div>
             </div>
 
@@ -43,7 +61,7 @@ const Profile = () => {
                 <div className="Label">Email nhận vé</div>
                 <div className="Value">
                     <input name="email" placeholder="Nhập email" type="text"
-                        maxLength="70" class="Input" value={user.email}/>
+                        maxLength="70" class="Input" value={data.email}/>
                 </div>
             </div>
 
@@ -51,7 +69,7 @@ const Profile = () => {
                 <div className="Label">Ngày tháng năm sinh</div>
                 <div className="Value">
                     <input name="dob" placeholder="Nhập ngày tháng năm sinh" type="text"
-                        maxLength="70" class="Input" value={user.dob}/>
+                        maxLength="70" class="Input" value={data.dateOfBirth}/>
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 // src/views/Home.jsx
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import NavBar from '../components/NavigationBar';
@@ -7,6 +7,7 @@ import Carousel from '../components/Carousel';
 import EventPooling from '../components/EventPooling.jsx';
 import EventItem from "../components/EventItem.jsx";
 import EventCard from "../components/EventCard.jsx";
+import {getAllEvents} from "../api/event.js";
 
 const Home = () => {
 
@@ -40,6 +41,23 @@ const Home = () => {
             price: "750.000đ",
         },
     ];
+
+    const [data, setData] = useState({});
+
+    const getALlEvents = async () => {
+        try{
+            const { data } = await getAllEvents();
+            setData(data);
+            console.log(data);
+        }
+        catch (error){
+            console.log("Error", error);
+        }
+    }
+
+    useEffect(() => {
+        getALlEvents();
+    }, []);
 
     return (
         <div className="home-page">
