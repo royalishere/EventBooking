@@ -5,7 +5,7 @@ import {toast} from 'react-toastify';
 import ToastContainer from '../components/Toast';
 import {loginWithEmailAndPassword, loginWithGoogle} from '../api/auth';
 import googleIcon from '../assets/google-icon.webp'
-import '../styles/auth.scss'
+import '../styles/_auth.scss'
 
 const UserLogin = () => {
     const [formData, setFormData] = useState({

@@ -4,6 +4,7 @@ import UserSignup from './views/UserSignup';
 import UserLogin from './views/UserLogin'
 import Home from './views/Home';
 import ForgotPassword from './views/ForgotPassword';
+import Profile from './views/Profile';
 
 const App = () => {
     return (
@@ -14,8 +15,9 @@ const App = () => {
                 <Route path="/signup" element={<UserSignup/>}/>
                 <Route path="/login" element={<UserLogin/>}/>
                 <Route path="/forgot-password" element={<ForgotPassword/>}/>
+                <Route path="/profile" element={<Profile/>}/>
             </Routes>
-        </Router>
+        </Router>  
     );
 };
 
