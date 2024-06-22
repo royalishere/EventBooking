@@ -1,0 +1,15 @@
+@import 'styles/auth.scss';
+@import 'styles/footer.scss';
+@import 'styles/header.scss';
+@import 'styles/home.scss';
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+}
