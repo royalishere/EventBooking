@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import FormInput from '../components/FormInput';
 import TitleBar from '../components/TitleBar';
 import {toast} from 'react-toastify';
@@ -6,6 +6,7 @@ import ToastContainer from '../components/Toast';
 import {loginWithEmailAndPassword, loginWithGoogle} from '../api/auth';
 import googleIcon from '../assets/google-icon.webp'
 import '../styles/auth.scss'
+import {createTicket} from "../api/ticket.js";
 
 const UserLogin = () => {
     const [formData, setFormData] = useState({
