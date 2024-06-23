@@ -47,6 +47,12 @@ public class UserController {
                 "User not found"));
     }
 
+    @GetMapping("/getByEmail")
+    public ResponseEntity<?> getByEmail(@RequestParam String email) {
+        return ResponseEntity.ok(Objects.requireNonNullElse(userService.getByEmail(email),
+                "User not found"));
+    }
+
     //cập nhật thông tin user
     @PutMapping("/update")
     public String updateUser(@RequestBody UserDTO user, @RequestParam int id) {
@@ -62,7 +68,7 @@ public class UserController {
         updateUser.setDateOfBirth(user.getDateOfBirth());
         updateUser.setEmail(user.getEmail());
 
-        try{
+        try {
             userService.updateUser(updateUser);
         } catch (Exception e) {
             return "Update failed";
