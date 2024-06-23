@@ -10,6 +10,7 @@ const FormInput = ({label, type, name, value, onChange}) => {
                 value={value}
                 onChange={onChange}
                 className="form-control"
+                maxLength={40}
                 required
             />
         </div>

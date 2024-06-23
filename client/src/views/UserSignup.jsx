@@ -1,9 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {registerWithEmailAndPassword, loginWithGoogle} from '../api/auth';
 import ToastContainer from '../components/Toast';
 import {toast} from "react-toastify";
 import FormInput from '../components/FormInput';
 import TitleBar from '../components/TitleBar';
+import {useAuth} from "../context/AuthContext.jsx";
+import {Navigate} from "react-router-dom";
+import {createUser} from "../api/user";
 
 const UserSignup = () => {
     const [formData, setFormData] = useState({
@@ -12,6 +15,11 @@ const UserSignup = () => {
         password: '',
     });
 
+    const {currentUser} = useAuth();
+
+    if (currentUser) {
+        return <Navigate to={'/'}/>
+    }
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -22,8 +30,12 @@ const UserSignup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await registerWithEmailAndPassword(formData.email, formData.password);
-            console.log('Signup successful:', response);
+            await registerWithEmailAndPassword(formData.email, formData.password);
+            const user = {
+                name: formData.username,
+                email: formData.email,
+            };
+            await createUser(user);
         } catch (error) {
             console.log('Signup error:', error.code);
             switch (error.code) {

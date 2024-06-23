@@ -1,8 +1,8 @@
 import React from 'react';
-import fb_icon from '../../public/facebook-icon.png';
-import ig_icon from '../../public/instagram-icon.png';
+import fb_icon from '/facebook-icon.png';
+import ig_icon from '/instagram-icon.png';
 
-const Footer = () => {
+const Footer = React.memo(() => {
     return (
         <footer>
             <div className="footer-container">
@@ -47,6 +47,6 @@ const Footer = () => {
         </footer>
 
     );
-}
+})
 
 export default Footer;
