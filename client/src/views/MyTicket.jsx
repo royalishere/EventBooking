@@ -2,77 +2,86 @@ import React, {useEffect, useState} from 'react'
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import TicketEmpty from '../components/TicketEmpty.jsx';
-import '../styles/_my_ticket.scss';
-import logo from '../../public/events_logo.jpeg';
-
-       
+import {useAuth} from "../context/AuthContext.jsx";
 
 const MyTicket = () => {
 
-  
-  const items = document.querySelectorAll('.tab-wrapper a');
-  items.forEach(item => {
-    item.addEventListener('click', () => {
-        items.forEach(i => i.classList.replace('clicked','tab'));
-        item.classList.replace('tab','clicked');
-    });
-  }); 
+    const {currentUser} = useAuth();
 
-  return (
-    <div class="My-ticket">
-        <Header/>
-        <div class="my-ticket-container">
-           <div class="breadcumb-wrapper">
-              <a href="/" target="_blank" class="">Trang chủ<i class="bi bi-arrow-right"></i> </a>
-              <span class="Breadcrumbs-current"> Vé đã mua</span>
-           </div>
+    useEffect(() => {
+        const items = document.querySelectorAll('.tab-wrapper a');
+        const handleClick = (item) => () => {
+            items.forEach(i => i.classList.replace('clicked', 'tab'));
+            item.classList.replace('tab', 'clicked');
+        };
+        items.forEach(item => {
+            item.addEventListener('click', handleClick(item));
+        });
 
-           <div class="container-flex">
-              <nav class="nav-wrapper">
-                <div class="nav-account">
-                  <img src={logo} class="account-avarta"/>
-                  <div class="account-name">
-                    <span class="account-name-text">Tài khoản của</span>
-                    <span class="account-name-value">Võ Minh Hiếu</span>
-                  </div>
+        // Cleanup event listeners on unmount
+        return () => {
+            items.forEach(item => {
+                item.removeEventListener('click', handleClick(item));
+            });
+        };
+    }, []);
+
+    return (
+        <>
+            <Header/>
+            <div className="my-ticket-container">
+                <div className="breadcumb-wrapper">
+                    <a href="/" target="_blank" className="">Trang chủ<i className="bi bi-arrow-right"></i> </a>
+                    <span className="Breadcrumbs-current"> Vé đã mua</span>
                 </div>
 
-                <ul class="nav-menu">
-                    <li>
-                      <a href="/profile">
-                        <span><i class="bi bi-person-fill"></i>&ensp; Thông tin cá nhân</span>
-                      </a>
-                    </li>
-                    <li>
-                        <a href="/my-ticket">
-                            <span id="current-page"><i className="bi bi-ticket-detailed"></i>&ensp; Vé đã mua</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/organizer/event">
-                            <span><i class="bi bi-calendar2-week-fill"></i>&ensp; Sự kiện của tôi</span>
-                        </a>
-                    </li>
-                </ul>
-              </nav>
+                <div className="container-flex">
+                    <nav className="nav-wrapper">
+                        <div className="nav-account">
+                            <img src={currentUser.photoURL} className="account-avartar" alt="avartar"/>
+                            <div className="account-name">
+                                <span className="account-name-text">Tài khoản của</span>
+                                <span className="account-name-value">{currentUser.name}</span>
+                            </div>
+                        </div>
 
-              <div class="page-container">
-                  <div class="page-header">Vé đã mua</div>
-                  <div class="divider"></div>
-                  <div class="tab-wrapper">
-                      <a title="Tất cả" class="clicked">Tất cả</a>
-                      <a title="Thành công" class="tab">Thành công</a>
-                      <a title="Đang xử lý" class="tab">Đang xử lý</a>
-                      <a title="Đã hủy" class="tab">Đã hủy</a>
-                  </div>
-                  <TicketEmpty/>
-              </div>
+                        <ul className="nav-menu">
+                            <li>
+                                <a href="/profile">
+                                    <span><i className="bi bi-person-fill"></i>&ensp; Thông tin cá nhân</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/my-ticket">
+                                    <span id="current-page"><i
+                                        className="bi bi-ticket-detailed"></i>&ensp; Vé đã mua</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/organizer/event">
+                                    <span><i className="bi bi-calendar2-week-fill"></i>&ensp; Sự kiện của tôi</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
 
-           </div>
-        </div>
-        <Footer/>
-    </div>
-  );
+                    <div className="page-container">
+                        <div className="page-header">Vé đã mua</div>
+                        <div className="divider"></div>
+                        <div className="tab-wrapper">
+                            <a title="Tất cả" className="clicked">Tất cả</a>
+                            <a title="Thành công" className="tab">Thành công</a>
+                            <a title="Đang xử lý" className="tab">Đang xử lý</a>
+                            <a title="Đã hủy" className="tab">Đã hủy</a>
+                        </div>
+                        <TicketEmpty/>
+                    </div>
+
+                </div>
+            </div>
+            <Footer/>
+        </>
+    );
 }
 
 export default MyTicket;

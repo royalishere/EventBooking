@@ -4,9 +4,8 @@ import Footer from '../components/Footer';
 import {useAuth} from "../context/AuthContext.jsx";
 import {Navigate} from "react-router-dom";
 import FormInput from "../components/FormInput.jsx";
-import {getById, updateUser} from "../api/user";
+import {updateUser} from "../api/user";
 import ToastContainer from "../components/Toast";
-import logo from '/events_logo.jpeg';
 import {toast} from "react-toastify";
 
 
@@ -21,15 +20,12 @@ const Profile = () => {
     const {currentUser} = useAuth();
     useEffect(() => {
         if (!currentUser) return;
-        const getUser = async (id) => {
-            try {
-                const {data} = await getById(id);
-                setUser(data);
-            } catch (error) {
-                console.log("Error", error);
-            }
-        }
-        getUser(currentUser.SID);
+        setUser({
+            name: currentUser.name,
+            phone: currentUser.phone,
+            email: currentUser.email,
+            dateOfBirth: currentUser.dateOfBirth,
+        });
     }, [currentUser]);
 
     if (!currentUser) {
@@ -46,7 +42,7 @@ const Profile = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await updateUser(user, currentUser.SID);
+            await updateUser(user, currentUser.id);
             toast.success('Cập nhật thông tin thành công');
         } catch (error) {
             toast.error('Cập nhật thông tin thất bại');
@@ -61,7 +57,7 @@ const Profile = () => {
             <div className="profile-container">
                 <form onSubmit={handleSubmit}>
                     <div className="avatar">
-                        <img src={logo} className="avatar-img" alt="Ảnh đại diện"/>
+                        <img src={currentUser.photoURL} className="avatar-img" alt="Ảnh đại diện"/>
                         <label htmlFor="img-input"><i className="bi bi-camera-fill"></i></label>
                         <input id="img-input" type="file" accept="image/*"/>
                     </div>

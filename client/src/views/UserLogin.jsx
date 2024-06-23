@@ -30,14 +30,19 @@ const UserLogin = () => {
 
     const handleGoogleSignIn = async () => {
         try {
-            await loginWithGoogle();
-            if (await getUserByEmail(currentUser.email) === null) {
-                const user = {
-                    name: currentUser.displayName,
-                    email: currentUser.email,
-                };
-                await createUser(user);
-            }
+            await loginWithGoogle().then(async (result) => {
+                const user = result.user;
+                const reg_user = await getUserByEmail(user.email);
+                console.log(reg_user);
+                if (reg_user.data === "User not found") {
+                    const newUser = {
+                        name: user.displayName,
+                        email: user.email,
+                        photoURL: user.photoURL,
+                    };
+                    await createUser(newUser);
+                }
+            });
         } catch (error) {
             switch (error.code) {
                 case 'auth/popup-closed-by-user':

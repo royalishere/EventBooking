@@ -15,8 +15,13 @@ export const AuthProvider = ({children}) => {
             setLoading(true); // Bắt đầu tải dữ liệu
             if (user) {
                 try {
-                    const userData = await getUserByEmail(user.email);
-                    setCurrentUser({...user, SID: userData.data.id});
+                    const result = await getUserByEmail(user.email);
+                    const userData = result.data;
+                    setCurrentUser({
+                        ...userData,
+                        email: user.email,
+                        photoURL: user.photoURL,
+                    });
                     setIsAuthenticated(true);
                 } catch (error) {
                     console.log("Error fetching user data", error);
