@@ -6,6 +6,7 @@ import Home from './views/Home';
 import ForgotPassword from './views/ForgotPassword';
 import Profile from './views/Profile';
 import EventDetail from './views/EventDetail';
+import MyTicket from './views/MyTicket';
 
 const App = () => {
     return (
@@ -18,6 +19,7 @@ const App = () => {
                 <Route path="/forgot-password" element={<ForgotPassword/>}/>
                 <Route path="/profile" element={<Profile/>}/>
                 <Route path="/eventdetail" element={<EventDetail/>}/>
+                <Route path="/my-ticket" element={<MyTicket/>}/>
             </Routes>
         </Router>  
     );
