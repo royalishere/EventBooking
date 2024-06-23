@@ -29,6 +29,11 @@ public class UserService {
         return userRepo.findById(id).orElse(null);
     }
 
+    //lấy user theo email
+    public User getByEmail(String email) {
+        return userRepo.findByEmail(email);
+    }
+
     //cập nhật thông tin user
     public void updateUser(User user) {
         userRepo.save(user);
