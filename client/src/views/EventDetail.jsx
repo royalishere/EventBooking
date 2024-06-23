@@ -27,7 +27,7 @@ const EventDetail = () => {
                             <div class="price-tk">
                                 <div class="ticket-price">
                                     <span>Giá từ </span>
-                                    <a href="/payment">
+                                    <a href="/select-ticket">
                                         <button class="buy-ticket">Mua vé</button>
                                     </a>
                                 </div>
