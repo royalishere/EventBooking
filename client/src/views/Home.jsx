@@ -11,51 +11,29 @@ import {getAllEvents} from "../api/event.js";
 
 const Home = () => {
 
-    const specialEvents = [
-        {
-            id: 1,
-            image: '/event_1.jpg',
-            title: "Sự kiện đặc biệt 1",
-            date: "22 tháng 06, 2024",
-            price: "250.000đ",
-        },
-        {
-            id: 2,
-            image: "/event_2.jpg",
-            title: "Sự kiện đặc biệt 2",
-            date: "13 tháng 07, 2024",
-            price: "1.000.000đ",
-        },
-        {
-            id: 3,
-            image: "/event_3.jpg",
-            title: "Sự kiện đặc biệt 3",
-            date: "30 tháng 08, 2024",
-            price: "500.000đ",
-        },
-        {
-            id: 4,
-            image: "/event_4.jpg",
-            title: "Sự kiện đặc biệt 4",
-            date: "05 tháng 09, 2024",
-            price: "750.000đ",
-        },
-    ];
+    const [listEvents, setListEvents] = useState([]);
 
-    const [data, setData] = useState({});
-
-    const getALlEvents = async () => {
+    const handleEvents = async () => {
         try {
-            const {data} = await getAllEvents();
-            setData(data);
+            const ListEvents = await getAllEvents();
+            if (ListEvents && ListEvents.data) {
+                const updatedEvents = ListEvents.data.map((event, index) => ({
+                    ...event,
+                    image: `/event_${index + 1}.jpg`,
+                    price: "500.000đ"
+                }));
+                setListEvents(updatedEvents);
+            }
         } catch (error) {
             console.log("Error", error);
         }
     }
 
     useEffect(() => {
-        getALlEvents();
+        handleEvents();
     }, []);
+
+    const specialEvents = listEvents.slice(0, 4);
 
     return (
         <div className="home-page">
@@ -66,12 +44,22 @@ const Home = () => {
             <EventPooling Component={EventCard} events={specialEvents}/>
 
             <h5 className="fw-bold ms-4">Nhạc sống</h5>
-            <EventPooling Component={EventItem} events={specialEvents}/>
+            <EventPooling Component={EventItem} events={listEvents}/>
             <p className="text-end me-4"><a href="/events" className="more-detail">Xem thêm <i
                 className="bi bi-arrow-right-square"></i></a>
             </p>
             <h5 className="fw-bold ms-4">Sân khấu & nghệ thuật</h5>
-            <EventPooling Component={EventItem} events={specialEvents}/>
+            <EventPooling Component={EventItem} events={listEvents}/>
+            <p className="text-end me-4"><a href="/events" className="more-detail">Xem thêm <i
+                className="bi bi-arrow-right-square"></i></a>
+            </p>
+            <h5 className="fw-bold ms-4">Thể thao</h5>
+            <EventPooling Component={EventItem} events={[]}/>
+            <p className="text-end me-4"><a href="/events" className="more-detail">Xem thêm <i
+                className="bi bi-arrow-right-square"></i></a>
+            </p>
+            <h5 className="fw-bold ms-4">Khác</h5>
+            <EventPooling Component={EventItem} events={[]}/>
             <p className="text-end me-4"><a href="/events" className="more-detail">Xem thêm <i
                 className="bi bi-arrow-right-square"></i></a>
             </p>

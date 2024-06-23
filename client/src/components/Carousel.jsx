@@ -21,10 +21,10 @@ const Carousel = ({slides}) => {
             <Slider{...settings}>
                 {slides.map((slide, index) => (
                     <div key={index}>
-                        <img src={slide.image} alt={slide.title}/>
+                        <img src={slide.image} alt={slide.name}/>
                         <div className="carousel-detail-container">
                             <p className="slide-price">Từ {slide.price}</p>
-                            <button>Xem Chi Tiết</button>
+                            <a href={`/event-detail?eventId=${slide.id}`}>Xem Chi Tiết</a>
                         </div>
                     </div>
                 ))}
