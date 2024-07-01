@@ -33,7 +33,6 @@ const UserLogin = () => {
             await loginWithGoogle().then(async (result) => {
                 const user = result.user;
                 const reg_user = await getUserByEmail(user.email);
-                console.log(reg_user);
                 if (reg_user.data === "User not found") {
                     const newUser = {
                         name: user.displayName,
