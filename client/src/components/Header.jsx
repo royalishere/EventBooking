@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../public/events_logo.jpeg';
+import logo from '/events_logo.jpeg';
 import {useAuth} from '../context/AuthContext';
 import {logout} from '../api/auth';
 
